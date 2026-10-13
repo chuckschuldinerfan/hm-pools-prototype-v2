@@ -194,17 +194,17 @@ var state = {
     var next = HM.sections[index + 1];
     var intro = section.intro ? '<div class="key-reminder"><strong>What to consider early on</strong><p>' + esc(section.intro) + '</p></div>' : '';
     var advice = section.kind === 'upload' ? '' : actionButton('advice', section.id, adviceLabel(section), state.advice[section.id]);
-    return intro + body + '<div class="section-footer">' + advice + (next ?
-      '<button class="btn-icon section-next__arrow" type="button" data-action="next" data-section="' + next.id + '" aria-label="Next: ' + esc(next.title) + '"><span aria-hidden="true">↓</span></button>' :
-      '<button class="btn btn--solid" type="button" data-action="review">Get in touch <span aria-hidden="true">↗</span></button>') + '</div>';
+    var arrow = next ? '<button class="btn-icon section-next__arrow" type="button" data-action="next" data-section="' + next.id + '" aria-label="Next: ' + esc(next.title) + '"><span aria-hidden="true">↓</span></button>' : '';
+    // the last step (Share your project) has neither, so it ends without a footer row
+    return intro + body + (advice || arrow ? '<div class="section-footer">' + advice + arrow + '</div>' : '');
   }
 
   /* ---------- Rendering ---------- */
 
   var groups = [
-    {start: 0, end: 4, title: 'Essential project information', text: 'These early details help HM Pools prepare for a conversation. Share what you know, or ask for advice.'},
-    {start: 4, end: 5, title: 'Have a project in mind?', text: 'Already have drawings or sketches? Share them to help HM Pools understand your project. You can also continue exploring without uploading anything.'},
-    {start: 5, end: 11, title: 'Plan the supporting details', text: 'Discover more possibilities for your pool, from technical solutions to finishing details. Explore what interests you and leave the rest for later.'}
+    {key: 'essential', start: 0, end: 4, title: 'Essential project information', text: 'These early details help HM Pools prepare for a conversation. Share what you know, or ask for advice.'},
+    {key: 'supporting', start: 4, end: 10, title: 'Plan the supporting details', text: 'Discover more possibilities for your pool, from technical solutions to finishing details. Explore what interests you and leave the rest for later.'},
+    {key: 'share', start: 10, end: 11, title: 'Have a project in mind?', text: 'Already have drawings or sketches? Share them to help HM Pools understand your project. You can also continue exploring without uploading anything.'}
   ];
   var activeSection = null;
   function contextualMedia(section) {
@@ -222,10 +222,10 @@ var state = {
   }
   function renderSections() {
     $('#sections').innerHTML = groups.map(function(g, groupIndex) {
-      var groupClass = ['essential', 'share', 'supporting'][groupIndex];
+      var groupClass = g.key;
       return '<section class="content-group content-group--' + groupClass + '" aria-labelledby="group-' + groupIndex + '"><header class="section-group"><div class="section-group__copy"><h2 id="group-' + groupIndex + '">' + esc(g.title) + '</h2><p>' + esc(g.text) + '</p></div></header>' +
         HM.sections.slice(g.start,g.end).map(function(section) {
-          var treatment = section.id === 'type' ? 'pool-type' : section.kind === 'dims' ? 'dimensions' : section.kind === 'upload' ? 'upload' : section.kind === 'info' ? 'technical' : groupIndex === 2 ? 'supporting' : 'essential';
+          var treatment = section.id === 'type' ? 'pool-type' : section.kind === 'dims' ? 'dimensions' : section.kind === 'upload' ? 'upload' : section.kind === 'info' ? 'technical' : g.key === 'supporting' ? 'supporting' : 'essential';
           return '<section class="guide-section guide-section--' + treatment + '" id="section-' + section.id + '" data-id="' + section.id + '" aria-labelledby="heading-' + section.id + '"><header class="section-heading"><h3 id="heading-' + section.id + '" tabindex="-1">' + esc(section.title) + '</h3></header><div id="body-' + section.id + '">' + sectionBody(section) + '</div></section>';
         }).join('') + '</section>';
     }).join('');

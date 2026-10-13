@@ -249,7 +249,7 @@
     }
   ];
 
-  var order = ['use', 'install', 'type', 'dims', 'upload', 'plant', 'water', 'access', 'covers', 'lighting', 'features'];
+  var order = ['use', 'install', 'type', 'dims', 'plant', 'water', 'access', 'covers', 'lighting', 'features', 'upload'];
   // TODO: Confirm applicable pool safety regulations and final wording with Olli.
   var reminders = {
     use: 'Who will use the pool? Its purpose determines which design requirements need to be considered from the start. Depending on the project, pool safety considerations may include controlled access, fencing or suitable covers. Applicable requirements should be confirmed for the specific location and use.',
