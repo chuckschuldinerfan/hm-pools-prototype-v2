@@ -194,7 +194,7 @@ var state = {
     var next = HM.sections[index + 1];
     var intro = section.intro ? '<div class="key-reminder"><strong>What to consider early on</strong><p>' + esc(section.intro) + '</p></div>' : '';
     var advice = section.kind === 'upload' ? '' : actionButton('advice', section.id, adviceLabel(section), state.advice[section.id]);
-    var arrow = next ? '<button class="btn-icon section-next__arrow" type="button" data-action="next" data-section="' + next.id + '" aria-label="Next: ' + esc(next.title) + '"><span aria-hidden="true">↓</span></button>' : '';
+    var arrow = next ? '<button class="btn-icon section-next__arrow" type="button" data-action="next" data-section="' + next.id + '" aria-label="Next: ' + esc(next.title) + '"><span aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 5v14M6 13l6 6 6-6"/></svg></span></button>' : '';
     // the last step (Share your project) has neither, so it ends without a footer row
     return intro + body + (advice || arrow ? '<div class="section-footer">' + advice + arrow + '</div>' : '');
   }
@@ -566,10 +566,10 @@ document.addEventListener('change', function(e) {
   /* Tapping the dimmed area outside the sheet closes it. */
   sheet.addEventListener('click',function(e) { if(e.target===sheet) sheet.close(); });
   function updateOffsets() {
-    var offset = Math.ceil($('.site-header').getBoundingClientRect().bottom + 20);
+    /* On small screens the header scrolls away and the project bar sits at the bottom, so anchors only need breathing room. */
+    var offset = window.innerWidth <= 1024 ? 24 : Math.ceil($('.site-header').getBoundingClientRect().bottom + 20);
     document.documentElement.style.setProperty('--nav-offset',offset+'px');
-    var compactHeight = window.innerWidth <= 1024 ? $('.mobile-project').getBoundingClientRect().height + 16 : 0;
-    document.documentElement.style.setProperty('--anchor-offset',(offset+compactHeight)+'px');
+    document.documentElement.style.setProperty('--anchor-offset',offset+'px');
     scheduleActive();
   }
   new ResizeObserver(updateOffsets).observe($('.site-header'));

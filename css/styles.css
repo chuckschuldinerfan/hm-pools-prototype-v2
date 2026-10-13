@@ -184,7 +184,15 @@ button, input, textarea { font: inherit; color: inherit; }
 
 
 /* Direction arrows next to labels: one size and weight everywhere. */
-.btn > span[aria-hidden], .site-header__contact > span[aria-hidden] { font-size: 1.1em; font-weight: var(--weight-regular); line-height: 1; }
+.btn > span[aria-hidden], .site-header__contact > span[aria-hidden] { display: inline-flex; font-size: 1.1em; line-height: 1; }
+/* Inline line icons (never text glyphs, which iOS can render as emoji): text-sized, thin stroke, current colour. */
+.icon { display: block; flex: none; width: 1em; height: 1em; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.btn-icon.section-next__arrow span { display: inline-flex; font-size: 20px; }
+/* Disclosure rows use one SVG chevron instead of the native marker; it turns when the row opens. */
+.references-area > summary, .review-summary > summary { display: flex; align-items: center; gap: var(--space-2); list-style: none; }
+.references-area > summary::-webkit-details-marker, .review-summary > summary::-webkit-details-marker { display: none; }
+.summary-chevron { display: inline-flex; margin-left: auto; font-size: 20px; transition: transform .2s ease; }
+details[open] > summary .summary-chevron { transform: rotate(180deg); }
 
 :focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 
@@ -530,7 +538,7 @@ summary { cursor: pointer; }
 .modal__close svg { fill: none; stroke: currentColor; stroke-width: 1.6; }.modal__head { padding-right: var(--space-7); margin-bottom: var(--space-4); }.modal__title { font: var(--weight-heading) var(--type-title-l)/1.3 var(--font-head); text-wrap: balance; }.modal__title:focus { outline: none; }.modal__lead { max-width: 62ch; color: var(--muted); margin-top: var(--space-2); font-size: var(--type-ui); line-height: 1.55; text-wrap: pretty; }
 .review-summary { margin: var(--space-3) 0 0; }
 .review-summary > summary { padding: var(--space-3) 0; color: var(--ink); font-size: var(--t-ui); font-weight: var(--weight-semibold); }
-.review-summary > summary span { margin-left: 8px; color: var(--muted); font-size: var(--type-small); font-weight: var(--weight-regular); }
+.review-summary > summary #review-summary-count { color: var(--muted); font-size: var(--type-small); font-weight: var(--weight-regular); }
 .modal__plan { margin-top: var(--space-2); border-top: 1px solid var(--hairline); }.modal__plan > div { display: grid; grid-template-columns: var(--label-col) minmax(0, 1fr) auto; gap: var(--space-4); align-items: baseline; padding: var(--space-3) 0; border-bottom: 1px solid var(--hairline); }.modal__plan dt { color: var(--muted); font-size: var(--t-small); }.modal__plan dd { font-size: var(--t-small); overflow-wrap: anywhere; white-space: pre-line; }.modal__plan > div > :last-child:not(dd) { justify-self: end; }
 .modal__grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); margin: var(--space-3) 0; }.mfield { display: grid; gap: var(--space-1); }.mfield--wide { grid-column: 1/-1; }.mfield label { font-size: var(--type-label); font-weight: var(--weight-medium); }.mfield__opt { color: var(--muted); }
 .mfield input:not([type="checkbox"]),.mfield textarea { width: 100%; min-height: 44px; border: 1px solid var(--field-line); padding: 12px var(--space-3); border-radius: var(--radius-control); font-size: var(--type-body); background: var(--surface); }.mfield textarea { resize: vertical; }.mfield [aria-invalid="true"] { border-color: var(--error) !important; }.mfield__error { font-size: var(--type-small); color: var(--error); }
@@ -565,10 +573,14 @@ summary { cursor: pointer; }
 @media (max-width: 1024px) {
   :root { --frame-gutter: 20px; }
   .guide { display: flex; flex-direction: column; }.guide-layout { padding-bottom: 40px; }.guided-content { width: 100%; }
-  /* The strip is page-coloured and covers the gap under the header, so nothing shows round the bar's corners. */
-  .mobile-project-strip { display: block; position: sticky; top: calc(var(--nav-offset) - 24px); z-index: 20; width: 100%; padding: 24px 0 8px; margin-top: -24px; background: var(--page); }
-  .mobile-project { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); width: 100%; padding: var(--space-3); border-radius: var(--radius-button); background: var(--surface-tint); }.mobile-project .btn { width: 100%; padding-inline: var(--space-3); }
-  .project-navigator { position: static; width: 100%; max-height: none; overflow: visible; }#project-nav { display: none; }
+  /* The header scrolls away with the page; only the project bar stays, docked to the bottom edge. */
+  .site-header { position: absolute; }
+  .guide-layout { padding-bottom: 0; padding-inline: max(var(--frame-gutter), env(safe-area-inset-left)) max(var(--frame-gutter), env(safe-area-inset-right)); }
+  /* Last in the guide, so position: sticky keeps it on the bottom edge while the guide is on screen and lets it settle at the end. */
+  .mobile-project-strip { display: block; position: sticky; bottom: 0; z-index: 20; width: auto; align-self: stretch; margin: 0 calc(-1 * var(--frame-gutter)); padding: 12px max(var(--frame-gutter), env(safe-area-inset-right)) calc(12px + env(safe-area-inset-bottom)) max(var(--frame-gutter), env(safe-area-inset-left)); border-top: 1px solid var(--hairline); background: rgb(var(--white-rgb) / 82%); -webkit-backdrop-filter: blur(16px) saturate(1.4); backdrop-filter: blur(16px) saturate(1.4); }
+  .mobile-project { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; }.mobile-project .btn { width: 100%; min-height: 44px; padding: 10px var(--space-3); }
+  /* A plain section on small screens: no card edges running down the sides. */
+  .project-navigator { position: static; width: 100%; max-height: none; overflow: visible; padding: 0; border: 0; border-radius: 0; box-shadow: none; }#project-nav { display: none; }
   #guide { scroll-margin-top: var(--nav-offset); }
 }
 @media (max-width: 640px) {
@@ -578,7 +590,7 @@ summary { cursor: pointer; }
   .site-footer__inner { grid-template-columns: 1fr; gap: 20px; padding: 32px 20px 20px; }.site-footer__copyright { grid-column: 1; }
 }
 @media (prefers-reduced-transparency: reduce) {
-  .hero-capabilities__inner > div, .site-footer, .hero .hero__cta { background: var(--brand-snow); -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .hero-capabilities__inner > div, .site-footer, .hero .hero__cta, .mobile-project-strip { background: var(--brand-snow); -webkit-backdrop-filter: none; backdrop-filter: none; }
   #consult { background: var(--brand-ice); -webkit-backdrop-filter: none; backdrop-filter: none; }
 }
 @media (prefers-reduced-motion: reduce) { *,*::before,*::after { animation: none !important; transition: none !important; }.reveal { opacity: 1; }}

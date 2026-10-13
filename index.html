@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Architect's pool guide | HM Pools</title>
   <meta name="description"
     content="Everything an architect needs to know before planning a stainless steel pool with HM Pools.">
@@ -12,9 +12,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
   <link rel="preload" href="img/hero.jpg" as="image">
-  <link rel="stylesheet" href="css/styles.css?v=202610132239">
-  <script src="js/data.js?v=202610132239" defer></script>
-  <script src="js/app.js?v=202610132239" defer></script>
+  <link rel="stylesheet" href="css/styles.css?v=202610140202">
+  <script src="js/data.js?v=202610140202" defer></script>
+  <script src="js/app.js?v=202610140202" defer></script>
 </head>
 
 <body>
@@ -33,7 +33,7 @@
       <span class="site-nav__label" title="Frequently asked questions (preview label)">FAQ</span>
     </nav>
     <div class="site-header__actions">
-      <button class="site-header__contact" type="button" data-action="direct-contact">Contact <span aria-hidden="true">&rarr;</span></button>
+      <button class="site-header__contact" type="button" data-action="direct-contact">Contact <span aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button>
       <div class="language-switch" aria-label="Language indicator"><span lang="en" aria-current="true">EN</span><span aria-hidden="true">/</span><span lang="fi" title="Finnish version is unavailable in this prototype">FI</span></div>
     </div>
   </header>
@@ -45,7 +45,7 @@
       <p class="hero__eyebrow reveal" style="--d: 0">HM Pools / Architect's Guide</p>
       <h1 class="hero__title reveal" id="hero-title" style="--d: 1">Explore what's possible for your pool project.</h1>
       <p class="hero__sub reveal" style="--d: 2">Technical insight for early-stage pool design.</p>
-      <a class="btn btn--solid hero__cta reveal" href="#guide" style="--d: 3">Start exploring <span aria-hidden="true">&darr;</span></a>
+      <a class="btn btn--solid hero__cta reveal" href="#guide" style="--d: 3">Start exploring <span aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 5v14M6 13l6 6 6-6"/></svg></span></a>
     </div>
   </section>
   <section class="hero-capabilities" aria-labelledby="hero-capabilities-title">
@@ -59,22 +59,22 @@
   </div>
   <div class="guide-layout">
     <main class="guide" id="guide" tabindex="-1">
+      <div class="guided-content">
+        <header class="guide-intro"><h2>Explore what's possible for your project.</h2><p>Explore design considerations and share what you already know with HM Pools.</p><div class="guide-intro__instruction"><strong>Select an option to explore drawings, examples and technical guidance.</strong></div><button class="btn btn--secondary upload-shortcut" type="button" data-action="next" data-section="upload">Already have a sketch? Add it first <span aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button></header>
+        <div id="sections"></div>
+        <details id="references-area" class="references-area"><summary>Reference projects <span class="summary-chevron" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"/></svg></span></summary><p>Explore the existing HM Pools project collection. These examples are references, not technical specifications for your project.</p><div class="refs" id="refs"></div></details>
+      </div>
+      <aside class="project-navigator" aria-label="Your Project">
+        <header><h2>Your Project</h2><p id="plan-count" data-plan-count aria-live="polite"></p></header>
+        <nav id="project-nav" aria-label="Project categories"></nav>
+        <div class="project-actions"><h3>Have a project in mind?</h3><p id="project-ready">Let's discuss what you know so far.</p><button class="btn btn--solid" type="button" id="book">Get in touch <span aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 17 17 7M8 7h9v9"/></svg></span></button></div>
+      </aside>
       <div class="mobile-project-strip">
         <div class="mobile-project">
           <button class="btn btn--secondary" type="button" data-action="open-sheet" aria-haspopup="dialog" aria-controls="project-sheet">Your project</button>
           <button class="btn btn--solid" type="button" data-action="review">Get in touch</button>
         </div>
       </div>
-      <div class="guided-content">
-        <header class="guide-intro"><h2>Explore what's possible for your project.</h2><p>Explore design considerations and share what you already know with HM Pools.</p><div class="guide-intro__instruction"><strong>Select an option to explore drawings, examples and technical guidance.</strong></div><button class="btn btn--secondary upload-shortcut" type="button" data-action="next" data-section="upload">Already have a sketch? Add it first &rarr;</button></header>
-        <div id="sections"></div>
-        <details id="references-area" class="references-area"><summary>Reference projects</summary><p>Explore the existing HM Pools project collection. These examples are references, not technical specifications for your project.</p><div class="refs" id="refs"></div></details>
-      </div>
-      <aside class="project-navigator" aria-label="Your Project">
-        <header><h2>Your Project</h2><p id="plan-count" data-plan-count aria-live="polite"></p></header>
-        <nav id="project-nav" aria-label="Project categories"></nav>
-        <div class="project-actions"><h3>Have a project in mind?</h3><p id="project-ready">Let's discuss what you know so far.</p><button class="btn btn--solid" type="button" id="book">Get in touch <span aria-hidden="true">↗</span></button></div>
-      </aside>
     </main>
   </div>
   <footer class="site-footer">
@@ -158,10 +158,10 @@
               Download PDF
             </button>
           </div>
-          <details class="review-summary" id="review-summary"><summary>View project details <span id="review-summary-count"></span></summary><dl class="modal__plan" id="consult-plan" aria-label="Your project brief"></dl></details>
+          <details class="review-summary" id="review-summary"><summary>View project details <span id="review-summary-count"></span><span class="summary-chevron" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"/></svg></span></summary><dl class="modal__plan" id="consult-plan" aria-label="Your project brief"></dl></details>
           <p class="print-note">This document is intended for preliminary project information collection and discussion only. All technical specifications, feasibility and final design requirements must be reviewed and confirmed with HM Pools.</p>
           <div id="review-missing" role="status"></div>
-          <button class="btn btn--solid" type="button" id="continue-contact">Continue to get in touch <span aria-hidden="true">↗</span></button>
+          <button class="btn btn--solid" type="button" id="continue-contact">Continue to get in touch <span aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 17 17 7M8 7h9v9"/></svg></span></button>
         </section>
         <div id="contact-step" hidden>
           <button class="summary-edit" type="button" id="back-review">Back to project summary</button>
